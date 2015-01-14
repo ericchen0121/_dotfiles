@@ -1,0 +1,35 @@
+# JAVA
+export JAVA_HOME=$(/usr/libexec/java_home)
+# MAVEN
+export MAVEN_OPTS='-Xmx512m'
+# ALIASES
+alias be='bundle exec'
+alias l='ls -lAGh'
+alias md='mkdir -p'
+alias rd='rmdir -p'
+
+# PATH
+export PATH=/usr/local/bin
+export PATH=$PATH:/usr/local/munki
+export PATH=$PATH:/usr/X11/bin
+export PATH=$PATH:/usr/bin
+export PATH=$PATH:/usr/sbin
+export PATH=$PATH:/bin
+export PATH=$PATH:/sbin
+
+# RBENV
+# export RBENV_ROOT=/usr/local/var/rbenv
+if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
+
+# EDITOR
+export EDITOR='subl -w'
+export BUNDLER_EDITOR=$EDITOR
+export GIT_EDITOR=$EDITOR
+alias edit=$EDITOR
+
+# Maven Commands for Audi AKQA
+export AUDI_CQ_UI=$HOME/Documents/AKQA/AUDI/audi-cq-ui
+export AUDI_BOOTSTRAP_EXPORT_DIR=$AUDI_CQ_UI/src/main/content/jcr_root/etc/designs/audiusa/vendor/bower_components/audi-bootstrap
+
+# File Limit
+ulimit -n 10240
