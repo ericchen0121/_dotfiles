@@ -1,0 +1,141 @@
+#
+# Executes commands at the start of an interactive session.
+#
+# Authors:
+#   Sorin Ionescu <sorin.ionescu@gmail.com>
+#
+
+# Source Prezto.
+if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
+  source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
+fi
+
+# Customize to your needs...
+source $HOME/.commonrc
+.  ~/.zprezto/modules/z/z.sh
+
+ulimit -n 9999
+
+alias server='python -m SimpleHTTPServer 8888'
+
+alias tailme='tail -f /data/cq5/publish/crx-quickstart/logs/error.log'
+
+## TMUX Aliases
+alias t='tmux -CC'
+alias ta='tmux -CC attach -t'
+alias tnews='tmux -CC new -s'
+alias tlists='tmux -CC list-session -t'
+alias tlistw='tmux -CC list-window -t'
+alias tswitch='tmux -CC switch -t '
+alias tlistc='tmux -CC list-command -t'
+
+alias tdet='tmux -CC detach -t'
+alias tkill='tmux -CC kill-session -t'
+
+
+# -------------------------------------------------------------------
+# Git aliases
+# -------------------------------------------------------------------
+
+# Aliases
+alias g='git'
+compdef g=git
+alias gst='git status'
+compdef _git gst=git-status
+alias gd='git diff'
+compdef _git gd=git-diff
+alias gdc='git diff --cached'
+compdef _git gdc=git-diff
+alias gl='git pull'
+compdef _git gl=git-pull
+alias gup='git pull --rebase'
+compdef _git gup=git-fetch
+alias gp='git push'
+compdef _git gp=git-push
+alias gd='git diff'
+gdv() { git diff -w "$@" | view - }
+compdef _git gdv=git-diff
+alias gc='git commit -v'
+compdef _git gc=git-commit
+alias gc!='git commit -v --amend'
+compdef _git gc!=git-commit
+alias gca='git commit -v -a'
+compdef _git gc=git-commit
+alias gca!='git commit -v -a --amend'
+compdef _git gca!=git-commit
+alias gcmsg='git commit -m'
+compdef _git gcmsg=git-commit
+alias gco='git checkout'
+compdef _git gco=git-checkout
+alias gcm='git checkout master'
+alias gr='git remote'
+compdef _git gr=git-remote
+alias grv='git remote -v'
+compdef _git grv=git-remote
+alias grmv='git remote rename'
+compdef _git grmv=git-remote
+alias grrm='git remote remove'
+compdef _git grrm=git-remote
+alias grset='git remote set-url'
+compdef _git grset=git-remote
+alias grup='git remote update'
+compdef _git grset=git-remote
+alias grbm='git rebase master'
+compdef _git grbm=git-rebase
+alias grbi='git rebase -i'
+compdef _git grbi=git-rebase
+alias grbih='git rebase -i HEAD~'
+compdef _git grbi=git-rebase
+alias grbc='git rebase --continue'
+compdef _git grbc=git-rebase
+alias grba='git rebase --abort'
+compdef _git grba=git-rebase
+alias gb='git branch'
+compdef _git gb=git-branch
+alias gba='git branch -a'
+compdef _git gba=git-branch
+alias gcount='git shortlog -sn'
+compdef gcount=git
+alias gcl='git config --list'
+alias gcp='git cherry-pick'
+compdef _git gcp=git-cherry-pick
+alias glg='git log --stat --max-count=10'
+compdef _git glg=git-log
+alias glgg='git log --graph --max-count=10'
+compdef _git glgg=git-log
+alias glgga='git log --graph --decorate --all'
+compdef _git glgga=git-log
+alias glo='git log --oneline --decorate --color'
+compdef _git glo=git-log
+alias glog='git log --oneline --decorate --color --graph'
+compdef _git glog=git-log
+alias gss='git status -s'
+compdef _git gss=git-status
+alias ga='git add'
+compdef _git ga=git-add
+alias gm='git merge'
+compdef _git gm=git-merge
+alias grh='git reset HEAD'
+alias grhh='git reset HEAD --hard'
+alias gclean='git reset --hard && git clean -dfx'
+alias gwc='git whatchanged -p --abbrev-commit --pretty=medium'
+
+#---------------------------------
+# Maven Commands for Audi CQ
+#---------------------------------
+#
+# da  | deploy author
+# dp  | deploy publish
+# db  | deploy both
+# dap  | deploy author as production
+# dpp  | deploy publish as production
+# dbp  | deploy both as production
+# The parenthesis opens a subshell and cd’s to your cq-ui repo.  This means you can run these commands from any directory, it will run, and will return you to your prior current working directory
+
+
+alias da='(cd $AUDI_CQ_UI; mvn clean install -Pauto-deploy,generate-js-css -DskipTests -Dfrontend.prod=false)'
+alias dp='(cd $AUDI_CQ_UI; mvn clean install -Pauto-deploy-publish,generate-js-css -DskipTests -Dfrontend.prod=false)'
+alias db='(cd $AUDI_CQ_UI; mvn clean install -Pauto-deploy,auto-deploy-publish,generate-js-css -DskipTests -Dfrontend.prod=false)'
+alias dap='(cd $AUDI_CQ_UI; mvn clean install -Pauto-deploy,generate-js-css -DskipTests)'
+alias dpp='(cd $AUDI_CQ_UI; mvn clean install -Pauto-deploy-publish,generate-js-css -DskipTests)'
+alias dbp='(cd $AUDI_CQ_UI; mvn clean install -Pauto-deploy,auto-deploy-publish,generate-js-css -DskipTests)'
